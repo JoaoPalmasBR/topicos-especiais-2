@@ -33,6 +33,7 @@
 
     <!-- Custom styles for this template -->
     <link href="./index_files/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.1/examples/product/product.css" rel="stylesheet">
     <link href="sair.html" rel="script">
   </head>
 
@@ -52,22 +53,27 @@
             <li class="nav-item active">
               <a class="nav-link" href="./">Inicio<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <!--<a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/#">Link</a>-->
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="./perguntas/">Perguntas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled"  href="./alunos/">Alunos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled"  href="./ranking/">Ranking</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--              <!--<a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/#">Link</a>-->-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link disabled" href="./perguntas/">Perguntas</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link disabled"  href="./alunos/">Alunos</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link disabled"  href="./ranking/">Ranking</a>-->
+<!--            </li>-->
           </ul>
           <form class="form-inline mt-2 mt-md-0">
             <div class="btn-group dropleft">
-              <button type="button" class="btn btn-secondary"><script>document.write(localStorage.getItem('usuarioNome'));</script></button>
+              <button type="button" class="btn btn-secondary">
+                  <?php
+                    $usuarioLogado = json_decode($_SESSION['usuarioLogado']);
+                    echo "$usuarioLogado->xp - $usuarioLogado->nome";
+                  ?>
+              </button>
               <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
@@ -84,94 +90,55 @@
 
     <!-- Begin page content -->
     <main role="main" class="container">
-        <!-- Icon Cards-->
-        <div class="row">
-            <div class="col-xl-4 col-sm-6 mb-3">
-                <div class="card text-white bg-primary o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-question-circle"></i>
-                        </div>
-                        <div class="mr-5"><?php echo $countPerguntas; ?> Perguntas!</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="./perguntas/">
-                        <span class="float-left">Visualizar</span>
-                        <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+            <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="border-radius: 21px ;">
+                <div class="my-3 py-3">
+                    <h2 class="display-5">Jogar</h2>
+                    <p class="lead">Mostre seus conhecimentos e acumule pontos.</p>
+                </div>
+                <div class=" shadow-sm mx-auto" style="width: 80%;padding: 15px; height: 300px; border-radius: 21px ;">
+                    <a href="go.php">
+                        <img  style="height: 250px;" src="../play-solid.svg">
                     </a>
                 </div>
             </div>
-            <div class="col-xl-4 col-sm-6 mb-3">
-                <div class="card text-white bg-warning o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-user-graduate"></i>
-                        </div>
-                        <div class="mr-5"><?php echo $countAlunos; ?> Alunos!</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="./alunos/">
-                        <span class="float-left">Visualizar</span>
-                        <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                    </a>
+            <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                <div class="my-3 p-3">
+                    <h2 class="display-5">Ranking</h2>
                 </div>
-            </div>
-            <div class="col-xl-4 col-sm-6 mb-3">
-                <div class="card text-white bg-success o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fas fa-fw fa-list-ol"></i>
-                        </div>
-                        <div class="mr-5">Ranking!</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="./ranking/">
-                        <span class="float-left">Visualizar</span>
-                        <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-      <h1 class="mt-5">CodePRO</h1>
-        <p class="lead"><code>Gamificação</code> aplicada à dinâmica de ensino em uma turma de introdução a <code>programação</code> no ensino superior.</p>
-
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Classificação</div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+                    <table class="table table-light table-striped table-lg table-hover">
                         <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Pontos</th>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Pontos</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
-                        <?php
-                        foreach  ($usuarios as $usuario) {
-                            if ($usuario->tipo === "aluno"){
-                                echo "<tr>
-                            <td>$usuario->nome</td><td>$usuario->xp</td></tr>";
-                            }
-                        }
-                        ?>
+                        <tr class="table-success">
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Jacob</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Jacob</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Larry</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </main>
 

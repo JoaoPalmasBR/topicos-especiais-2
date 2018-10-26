@@ -16,6 +16,7 @@ include "./carregarUsuarios.php";
 
                 if ($value->senha == $senhaInput){
                     echo "<script>alert('Bem Vindo $userInput!')</script>";
+
                     $string = $value->str();
         //                echo $value->str();
                     echo '<script>localStorage.setItem("usuarioLogado","';
@@ -23,7 +24,7 @@ include "./carregarUsuarios.php";
 
                     echo '<script>localStorage.setItem("usuarioTipo","'.$value->tipo.'")</script>';
                     echo '<script>localStorage.setItem("usuarioNome","'.$value->nome.'")</script>';
-
+                    $_SESSION['usuarioLogado']=json_encode($value);
                     echo "<script>if (localStorage.getItem('usuarioTipo')=='aluno') {location.replace('./play/')};</script>";
                     echo "<script>if (localStorage.getItem('usuarioTipo')=='professor') {location.replace('./admin/')};</script>";
                 } else {
@@ -31,6 +32,7 @@ include "./carregarUsuarios.php";
                     echo "<script>location.assign('./')</script>";
                 }
                 $achouusuario = true;
+
                 break;
             }
         }
