@@ -5,8 +5,8 @@
  * Date: 11/10/2018
  * Time: 20:56
  */
-    include "/Pergunta.php";
-    include "/connect.php";
+    include ("pergunta.php");
+    include "connect.php";
     $perguntas = array();
     $queryPerguntas = "SELECT * FROM `codepro_perguntas`;";
     if ($resultPerguntas = $mysqli->query($queryPerguntas)) {
@@ -22,7 +22,7 @@
 
             $opcaocertaPergunta = $rowPerguntas['opcaocerta'];
 
-            $myObj = new Pergunta();
+            $myObj = new pergunta();
             $myObj->id = $idPergunta;
             $myObj->enunciado = $enunciadoPergunta;
             $myObj->nivel = $nivelPergunta;

@@ -15,6 +15,8 @@ foreach  ($usuarios as $usuario) {
 //        $countAlunos = $countAlunos + 1;
     }
 }
+$usuarioLogado = json_decode($_SESSION['usuarioLogado']);
+
 ?>
 <!DOCTYPE html>
 <!-- saved from url=(0064)https://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/ -->
@@ -27,7 +29,7 @@ foreach  ($usuarios as $usuario) {
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
-    <title>Sticky Footer Navbar Template for Bootstrap</title>
+    <title>codePRO</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../index_files/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +42,55 @@ foreach  ($usuarios as $usuario) {
     <!-- Custom styles for this template -->
     <link href="../index_files/sticky-footer-navbar.css" rel="stylesheet">
     <link href="../sair.html" rel="script">
+    <style>
+        .chip {
+            display: inline-block;
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+        }
 
+        .chip img {
+            float: left;
+            margin: 0 10px 0 -25px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+        .closebtn {
+            padding-left: 10px;
+            color: #888;
+            font-weight: bold;
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .closebtn:hover {
+            color: #000;
+        }
+    </style>
+    <style type="text/css">
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px; background: url('images/noise.jpg'); }
+        .clear { clear: both; }
+        #page-wrap { width: 800px; margin: 0px auto 60px; }
+        #pic { float: right; margin: -30px 0 0 0; }
+        h1 { margin: 0 0 16px 0; padding: 0 0 16px 0; font-size: 42px; font-weight: bold; letter-spacing: -2px; border-bottom: 1px solid #999; }
+        h2 { font-size: 20px; margin: 0 0 6px 0; position: relative; }
+        h2 span { position: absolute; bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #999; font-weight: normal; }
+        p { margin: 0 0 16px 0; }
+
+        ul { margin: 0 0 32px 17px; }
+        #objective { width: 500px; float: left; }
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #666; }
+        dt { font-style: italic; font-weight: bold; font-size: 18px; text-align: right; padding: 0 26px 0 0; width: 150px; float: left; height: 100px; border-right: 1px solid #999;  }
+        dd { width: 600px; float: right; }
+        dd.clear { float: none; margin: 0; height: 15px; }
+    </style>
 </head>
 
 <body>
@@ -62,19 +112,24 @@ echo "<script>if (localStorage.getItem('usuarioLogado')==null) {location.replace
                 <li class="nav-item ">
                     <!--<a class="nav-link" href="https://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/#">Link</a>-->
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../perguntas/">Perguntas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../alunos/">Alunos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../ranking/">Ranking</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../perguntas/">Perguntas</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../alunos/">Alunos</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../ranking/">Ranking</a>-->
+<!--                </li>-->
             </ul>
             <form class="form-inline mt-2 mt-md-0">
                 <div class="btn-group dropleft">
-                    <button type="button" class="btn btn-secondary"><script>document.write(localStorage.getItem('usuarioNome'));</script></button>
+                    <button type="button" class="btn btn-secondary">
+                        <?php
+                        $usuarioLogado = json_decode($_SESSION['usuarioLogado']);
+                        echo "$usuarioLogado->xp - $usuarioLogado->nome";
+                        ?>
+                    </button>
                     <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
@@ -93,14 +148,134 @@ echo "<script>if (localStorage.getItem('usuarioLogado')==null) {location.replace
 <main role="main" class="container">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">
-                <img src="../../user-circle-regular.svg" height="100">
-                <script>document.write(localStorage.getItem('usuarioNome'));</script>
-            </h1>
-            <hr class="my-4">
-            <p>
+            <!-- -->
+            <div id="page-wrap">
 
-            </p>
+                <img src="./images/cthulu.png" alt="Photo of Cthulu" id="pic" />
+
+                <div id="contact-info" class="vcard">
+
+                    <!-- Microformats! -->
+
+                    <h1 class="fn">
+                        <?php echo $usuarioLogado->nomecompleto;?>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Alterar Senha</button>
+                    </h1>
+
+                    <p>
+                        Usuario: <span class="user"><kbd><?php echo $usuarioLogado->nome;?></kbd></span><br />
+                        Email: <a class="email" href="mailto:<?php echo $usuarioLogado->email;?>"><?php echo $usuarioLogado->email;?></a>
+                    </p>
+                </div>
+
+                <div id="objective">
+                    <blockquote class="blockquote text-right">
+                        <p class="mb-0">
+                            Eu sou um jovem profissional extrovertido e enérgico (pergunte a qualquer um),
+                            buscando uma carreira que se adapte às minhas habilidades profissionais, personalidade e tendências assassinas.
+                            Minha cabeça de lula é uma solucionadora de problemas magistral e inspira medo em quem olha para ela. Eu posso trazer o domínio do mundo para a sua organização.
+                        </p>
+                        <footer class="blockquote-footer">Alguem famoso conhecido como
+                            <cite title="Source Title">
+                                <?php
+                                    $nomes = explode(" ", $usuarioLogado->nomecompleto);
+                                    echo $nomes[0]." ".$nomes[1];
+                                ?>
+                            </cite>
+                        </footer>
+                    </blockquote>
+                    <p>
+
+
+                    </p>
+                </div>
+
+                <div class="clear"></div>
+
+                <dl>
+                    <dd class="clear"></dd>
+
+                    <dt>Jogador</dt>
+                    <dd>
+                        <h2>
+                            Nível: <?php echo $usuarioLogado->nivel;?>
+                        </h2>
+                        <p>
+                            <strong>XP:  <?php echo $usuarioLogado->xp;?></strong><br>
+                            <strong>Vulgo:</strong> <?php
+                            if ($usuarioLogado->nivel==1){
+                                echo "<button type='button' class='btn btn-primary'>
+                        Dente de Leite <span class='badge badge-light'>";
+                                echo $usuarioLogado->xp;
+                                echo "</span>
+                        <span class='sr-only'>unread messages</span>
+                      </button>";
+                            }
+                            if ($usuarioLogado->nivel==2){
+                                echo "<button type='button' class='btn btn-primary'>
+                        Badeco <span class='badge badge-light'>";
+                                echo $usuarioLogado->xp;
+                                echo "</span>
+                        <span class='sr-only'>unread messages</span>
+                      </button>";
+                            }
+                            if ($usuarioLogado->nivel==3){
+                                echo "<button type='button' class='btn btn-primary'>
+                        Funcionario do Google <span class='badge badge-light'>";
+                                echo $usuarioLogado->xp;
+                                echo "</span>
+                        <span class='sr-only'>unread messages</span>
+                      </button>";
+                            }
+
+                            ?><br />
+                    </dd>
+
+                    <dd class="clear"></dd>
+
+                    <dt>Conquistas</dt>
+                    <dd>
+<!--                        <div class="chip"><img src="img_avatar.png" alt="Person" width="96" height="96">John Doe</div>-->
+<!--                        <h2>Office skills</h2>-->
+<!--                        <p>Office and records management, database administration, event organization, customer support, travel coordination</p>-->
+<!---->
+<!--                        <h2>Computer skills</h2>-->
+<!--                        <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>-->
+                    </dd>
+
+
+                </dl>
+
+            </div>
+            <!-- -->
+
+            <!-- Small modal -->
+
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Alterar Senha</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="alterarsenha.php" method="post" autocomplete="off" target="_self">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Senha</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" placeholder="Senha" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

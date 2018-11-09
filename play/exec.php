@@ -29,5 +29,5 @@ $perguntaCompleta = $perguntasDoNivel[$selecionada];
     $_SESSION['perguntaCompleta'] = json_encode($perguntaCompleta);
     $perguntaCompleta1 = json_encode($perguntaCompleta);
     echo "<script>localStorage.setItem('perguntaCompleta','$perguntaCompleta1');</script>";
-    echo "<script>location.assign('./y/')</script>";
+    echo "<script>location.assign('naotempergunta/')</script>";
 ?>

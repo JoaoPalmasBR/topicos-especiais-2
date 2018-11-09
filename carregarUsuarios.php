@@ -6,8 +6,8 @@
  * Time: 20:56
  */
 
-include "/Usuario.php";
-include "/connect.php";
+include "usuario.php";
+include "connect.php";
 
 $usuarios = array();
 $queryUsuarios = "SELECT * FROM `codepro_usuarios`;";
@@ -22,7 +22,7 @@ if ($resultUsuarios = $mysqli->query($queryUsuarios)) {
         $nivelUsuario = $rowUsuarios['nivel'];
         $xpUsuario = $rowUsuarios['xp'];
 
-        $myObj = new Usuario();
+        $myObj = new usuario();
         $myObj->id = $idUsuario;
         $myObj->nomecompleto = $nomecompletoUsuario;
         $myObj->nome = $nomeUsuario;
