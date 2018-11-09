@@ -8,6 +8,7 @@
 session_start();
 include "../../carregarPerguntas.php";
 include "../../carregarUsuarios.php";
+include "../../connect.php";
 $perguntas = $_SESSION['perguntas'];
 $usuarios = $_SESSION['usuarios'];
 foreach  ($usuarios as $usuario) {
@@ -27,7 +28,7 @@ foreach  ($usuarios as $usuario) {
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
-    <title>Sticky Footer Navbar Template for Bootstrap</title>
+    <title>codePRO</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../index_files/bootstrap.min.css" rel="stylesheet">
@@ -93,25 +94,34 @@ foreach  ($usuarios as $usuario) {
 <main role="main" class="container">
     <div class="card-columns">
             <?php
-                foreach  ($usuarios as $usuario) {
-                    if ($usuario->tipo === "aluno"){
-                        echo "<div class=\"card\">";
-                            echo "<div class=\"card-body\">";
-                                echo "<h5 class=\"card-title\">";
-                                    echo "<img src='../../user-circle-regular.svg' height='45' alt=\"fotoperfil\">";
-                                    echo " $usuario->nomecompleto ($usuario->nome)";
-                                echo "</h5>";
-                                echo "<p class=\"card-text\">";
-                                    echo "<h1><img src='../../angle-double-up-solid.svg' height='45'> $usuario->nivel 
-                                    <img src='../../star-regular.svg' height='45'> $usuario->xp </h1>";
-                                echo "</p>";
-                            echo "</div>";
-                            echo "<div class=\"card-footer\">";
-                                echo "<small class=\"text-muted\">$usuario->email</small>";
-                            echo "</div>";
-                        echo "</div>";
-                    }
+            $queryUsuarios = "SELECT * FROM `codepro_usuarios` where tipo='aluno' order by `nivel` desc, `xp` desc, `nome` asc;";
+            if ($resultUsuarios = $mysqli->query($queryUsuarios)) {
+                while ($rowUsuarios = $resultUsuarios->fetch_assoc()) {
+                    $idUsuario = $rowUsuarios['id'];
+                    $nomeUsuario = $rowUsuarios['nome'];
+                    $nomecompletoUsuario = $rowUsuarios['nomecompleto'];
+                    $nivelUsuario = $rowUsuarios['nivel'];
+                    $xpUsuario = $rowUsuarios['xp'];
+                    $emailUsuario = $rowUsuarios['email'];
+                    echo "<div class=\"card\">";
+                    echo "<div class=\"card-body\">";
+                    echo "<h5 class=\"card-title\">";
+                    echo "<img src='../../user-circle-regular.svg' height='45' alt=\"fotoperfil\">";
+                    echo " $nomecompletoUsuario ($nomeUsuario)";
+                    echo "</h5>";
+                    echo "<p class=\"card-text\">";
+                    echo "<h1><img src='../../angle-double-up-solid.svg' height='45'> $nivelUsuario
+                                    <img src='../../star-regular.svg' height='45'> $xpUsuario </h1>";
+                    echo "</p>";
+                    echo "</div>";
+                    echo "<div class=\"card-footer\">";
+                    echo "<small class=\"text-muted\">$emailUsuario</small>";
+                    echo "        <a href='enviaremailcomosdados.php?usuarioareceber=$idUsuario' class=\"btn btn-outline-info\">Email</a>";
+                    echo "</div>";
+                    echo "</div>";
                 }
+            }
+
             ?>
     </div>
 </main>
